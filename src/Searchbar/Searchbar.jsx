@@ -15,22 +15,22 @@ class Searchbar extends Component{
         this.setState({keyWord:''})
     }
     render() {
-        return(<header className="Searchbar">
-  <form className="SearchForm" onSubmit={this.onSubmitSearchForm}>
-    <button type="submit" className="SearchForm-button">
-      <span className="SearchForm-button-label"><BiSearch/></span>
-    </button>
-                <input
+      return (<header className="Searchbar">
+        <form className="SearchForm" onSubmit={this.onSubmitSearchForm}>
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label"><BiSearch /></span>
+          </button>
+          <input
                     className="SearchForm-input"
                     type="text"
                     autoComplete="off"
                     autoFocus
                     placeholder="Search images and photos"
                     value={this.state.keyWord}
-                    onChange={this.hendleInputChanga}
-    />
-  </form>
-</header>)
+            onChange={this.hendleInputChanga}
+          />
+        </form>
+        </header>)
     }
 }
 export default Searchbar;

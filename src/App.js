@@ -24,7 +24,11 @@ export default function App() {
     const toggleModal = () => {
         setShowModal(prev => !prev);
     }
+    // const qwer = (data) => {
+    //     console.log(data);
+    // }
     const onSubKeyWordHandApp = data => {
+        console.log(data);
         setKeyWord(data);
         setPage(1);
         setImages([]);
@@ -64,7 +68,7 @@ export default function App() {
     }, [keyWord, page]);
     
     return (<div className="main-conteiner">
-      <Searchbar onSubHand={onSubKeyWordHandApp} />
+        <Searchbar onSubHand={onSubKeyWordHandApp}/>
       <ImageGallery gallery={images} onSubIdHends={ onSubIdHendApp}/>
       {loader && <Loader
         type="ThreeDots"
