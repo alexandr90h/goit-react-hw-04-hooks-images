@@ -45,26 +45,24 @@ export default function App() {
         setImgIdModal(data);
         toggleLoader();
     }
-    const scrollToNextPage = () => {
+
+    useEffect(() => {
+            const scrollToNextPage = () => {
         window.scrollTo({
             top: newPageCords,
             behavior: 'smooth',
         });
     }
-
-    useEffect(() => {
         if (keyWord) {
-            toggleLoader();
             fetch(`https://pixabay.com/api/?q=${keyWord}&page=${page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`)
                 .then(res => res.json()).then(({ hits }) => {
-                    setImages(prev => prev.concat(hits));
-                    if (images.length !== 0) { setButtonVisible(prev => prev = true) }
-                }).finally(toggleLoader());
+                    setImages(prev => prev.concat(hits))
+                });
             scrollToNextPage();
         }
-        console.log(keyWord);
-        console.log(images);
-        console.log(buttonVisible);
+        // console.log(keyWord);
+        // console.log(images);
+        // console.log(buttonVisible);
     }, [keyWord, page]);
     
     return (<div className="main-conteiner">
