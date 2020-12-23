@@ -1,15 +1,11 @@
-const { Component } = require("react");
+const { useState } = require("react");
 
-class Button extends Component {
-    state = {
-        page: 2,
+
+export default function Button(props) {
+    const [page, setPage] = useState(2);
+       const onLoadMore = () => {
+        setPage(prev => prev + 1 );
+        props.onSubPageNum(page);
     }
-    onLoadMore = e => {
-        this.setState(prev => ({ page: prev.page + 1 }));
-        this.props.onSubPageNum(this.state.page);
-    }
-    render() {
-        return(<button type="button" onClick={this.onLoadMore} className="Button">Load more</button>)
-    }
-}
-export default Button;
+return(<button type="button" onClick={onLoadMore} className="Button">Load more</button>)
+};

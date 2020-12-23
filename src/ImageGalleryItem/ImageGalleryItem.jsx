@@ -1,27 +1,24 @@
-import { Component } from "react";
 import PropTypes from 'prop-types';
 
-class ImageGalleryItem extends Component{
-  onClickImg = e => {
-    // console.log(e.currentTarget.dataset.url);
-    this.props.onSubId(e.currentTarget.dataset.id)
+export default function ImageGalleryItem({urlImage,altImage,idImage,onSubId}) {
+ const onClickImg = e => {
+  onSubId(e.currentTarget.dataset.id)
   }
-  render() {
-    return (
+  return (
       <li className="ImageGalleryItem" >
         <img
-          src={this.props.urlImage}
-          alt={this.props.altImage}
-          data-id={this.props.idImage}
+          src={urlImage}
+          alt={altImage}
+          data-id={idImage}
           className="ImageGalleryItem-image"
-          onClick={this.onClickImg}
+          onClick={onClickImg}
         />
       </li>)
-  }
-}
+};
+
+
 ImageGalleryItem.propTypes = {
   urlImage: PropTypes.string,
   altImage: PropTypes.string,
   idImage:PropTypes.number,
 }
-export default ImageGalleryItem;

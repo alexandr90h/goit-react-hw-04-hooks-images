@@ -24,15 +24,10 @@ export default function App() {
     const toggleModal = () => {
         setShowModal(prev => !prev);
     }
-    // const qwer = (data) => {
-    //     console.log(data);
-    // }
     const onSubKeyWordHandApp = data => {
-        console.log(data);
+        setImages([]);
         setKeyWord(data);
         setPage(1);
-        setImages([]);
-        console.log('onSubKeyWordHandApp')
     }
     const onSubPageNumApp = data => {
         const cords = document.documentElement.scrollHeight - 170;
@@ -45,24 +40,24 @@ export default function App() {
         setImgIdModal(data);
         toggleLoader();
     }
+        const scrollToNextPage = () => {
+            window.scrollTo({
+                top: newPageCords,
+                behavior: 'smooth',
+            });
+        }
 
     useEffect(() => {
-            const scrollToNextPage = () => {
-        window.scrollTo({
-            top: newPageCords,
-            behavior: 'smooth',
-        });
-    }
         if (keyWord) {
+            toggleLoader();
             fetch(`https://pixabay.com/api/?q=${keyWord}&page=${page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`)
-                .then(res => res.json()).then(({ hits }) => {
-                    setImages(prev => prev.concat(hits))
+                .then(res => res.json()).then(({ hits }) => { setImages(prev => images === [] ? hits : ([...prev, ...hits])); setButtonVisible(true) }).finally(() => {
+                    toggleLoader();
+                    scrollToNextPage();
                 });
-            scrollToNextPage();
         }
-        // console.log(keyWord);
-        // console.log(images);
-        // console.log(buttonVisible);
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [keyWord, page]);
     
     return (<div className="main-conteiner">
@@ -74,7 +69,7 @@ export default function App() {
         height={100}
         width={100}
       />}
-      {buttonVisible && <Button onSubPageNum={onSubPageNumApp} />}
+        {buttonVisible && <Button onSubPageNum={onSubPageNumApp} />}
       {showModal &&
         <Modal
         onCloseHend={toggleModal}

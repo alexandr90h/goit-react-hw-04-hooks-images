@@ -15,9 +15,6 @@ class Modal extends Component{
          fetch(`https://pixabay.com/api/?id=${this.props.imgId}&key=${this.state.key}`)
             .then(res => res.json()).then(({hits})=>{this.setState({imgUrl:hits[0].largeImageURL})}).finally(()=>this.setState({visible:false}));
   }
-    componentDidUpdate() { 
-        
-    }
              
   componentWillUnmount() {
       window.removeEventListener('keydown', this.handlerKeyDown);

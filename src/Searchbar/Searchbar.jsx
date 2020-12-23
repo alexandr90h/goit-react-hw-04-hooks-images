@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
+import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
-class Searchbar extends Component{
-    state={
-            keyWord: '',
-
+export default function Searchbar(props) {
+    const [keyWord, setKeyWord] = useState('');
+    
+    const hendleInputChanga = e => {
+        setKeyWord(e.currentTarget.value);
     }
-    hendleInputChanga = e => {
-        this.setState({ keyWord: e.currentTarget.value })
-    }
-    onSubmitSearchForm = e => {
+    const  onSubmitSearchForm = e => {
         e.preventDefault();
-        this.props.onSubHand(this.state.keyWord);
-        this.setState({keyWord:''})
+        props.onSubHand(keyWord);
+        setKeyWord('');
     }
-    render() {
-      return (<header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.onSubmitSearchForm}>
+    return (<header className="Searchbar">
+        <form className="SearchForm" onSubmit={onSubmitSearchForm}>
           <button type="submit" className="SearchForm-button">
             <span className="SearchForm-button-label"><BiSearch /></span>
           </button>
@@ -26,11 +23,9 @@ class Searchbar extends Component{
                     autoComplete="off"
                     autoFocus
                     placeholder="Search images and photos"
-                    value={this.state.keyWord}
-            onChange={this.hendleInputChanga}
+                    value={keyWord}
+            onChange={hendleInputChanga}
           />
         </form>
-        </header>)
-    }
-}
-export default Searchbar;
+      </header>)
+};
