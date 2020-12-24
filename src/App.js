@@ -5,12 +5,12 @@ import Searchbar from './Searchbar/Searchbar.jsx';
 import ImageGallery from './ImageGallery/ImageGallery.jsx';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
+import MainApi from './Services/Api';
 import { useEffect, useState } from 'react';
 
 export default function App() {
     const [keyWord, setKeyWord] = useState(null);
     const [page, setPage] = useState(1);
-    const key='18956584-3ac01e2418e4c39c7eb5dacd9';
     const [images, setImages] = useState([]);
     const [imgIdModal, setImgIdModal] = useState('');
     const [newPageCords, setNewPageCords] = useState(0);
@@ -50,8 +50,8 @@ export default function App() {
     useEffect(() => {
         if (keyWord) {
             toggleLoader();
-            fetch(`https://pixabay.com/api/?q=${keyWord}&page=${page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`)
-                .then(res => res.json()).then(({ hits }) => { setImages(prev => images === [] ? hits : ([...prev, ...hits])); setButtonVisible(true) }).finally(() => {
+            MainApi(keyWord, page).then(({ hits }) => { setImages(prev => images === [] ? hits : ([...prev, ...hits])); setButtonVisible(true) })
+                .finally(() => {
                     toggleLoader();
                     scrollToNextPage();
                 });
